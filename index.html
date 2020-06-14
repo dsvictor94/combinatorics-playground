@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Combinatorics playground</title>
+        <script src="https://cdn.jsdelivr.net/npm/js-combinatorics@0.5"></script>
+
+        <script>
+
+            function range(from, to) {
+                const elements = []
+                for(let i=from; i<=to; i++) {
+                    elements.push(i)
+                }
+                return elements
+            }
+
+            window.addEventListener('load', () => {
+                document.querySelector('form').addEventListener('submit', (event) => {
+                    event.preventDefault()
+
+                    const from = parseInt(document.querySelector('#from').value)
+                    const to = parseInt(document.querySelector('#to').value)
+
+                    const choose = parseInt(document.querySelector('#choose').value)
+
+
+                    const padLength = to.toString().length
+                    const pad = Array(padLength).fill("0").join("")
+                    let output = ""
+                    const combinations = Combinatorics.combination(range(from, to), choose)
+                    
+                    const results = Math.round(combinations.length)
+
+                    if (results <= 100000) {
+                        combinations.forEach(element => {
+                            output += element.map(x => (pad + x).slice(-padLength)).join(' ') + '\n'
+                        });
+                    } else {
+                        output = "( so many result )"
+                    }
+
+                    document.querySelector("#output").innerHTML = output
+
+                    document.querySelector("#count").innerHTML =  results + " results"
+                })
+            })
+        </script>
+    </head>
+
+    <body>
+        <h1>Combinatorics playground</h1>
+        <form>
+            Elements: from: <input id="from" value="1"> to: <input id="to" value="10">
+            <br>
+            Chooses: <input id="choose" value="5">
+
+            <br>
+            <input type="submit">
+        </form>
+
+        <h2>Combinations: <span id="count"></span></h2>
+        <pre id="output"></pre>
+    </body>
+</html>
