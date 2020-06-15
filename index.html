@@ -6,28 +6,20 @@
 
         <script>
 
-            function range(from, to) {
-                const elements = []
-                for(let i=from; i<=to; i++) {
-                    elements.push(i)
-                }
-                return elements
-            }
-
             window.addEventListener('load', () => {
                 document.querySelector('form').addEventListener('submit', (event) => {
                     event.preventDefault()
 
-                    const from = parseInt(document.querySelector('#from').value)
-                    const to = parseInt(document.querySelector('#to').value)
+                    const elements = document.querySelector('#elements').value.split(' ').map(x => parseInt(x, 10))
 
                     const choose = parseInt(document.querySelector('#choose').value)
 
+                    console.log(elements)
 
-                    const padLength = to.toString().length
+                    const padLength = Math.max(...elements).toString().length
                     const pad = Array(padLength).fill("0").join("")
                     let output = ""
-                    const combinations = Combinatorics.combination(range(from, to), choose)
+                    const combinations = Combinatorics.combination(elements, choose)
                     
                     const results = Math.round(combinations.length)
 
@@ -50,7 +42,7 @@
     <body>
         <h1>Combinatorics playground</h1>
         <form>
-            Elements: from: <input id="from" value="1"> to: <input id="to" value="10">
+            Elements: <input id="elements" value="1 2 3 4 5 6 7 8 9 10" style="width: 200px;">
             <br>
             Chooses: <input id="choose" value="5">
 
