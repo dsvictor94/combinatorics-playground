@@ -10,7 +10,7 @@
                 document.querySelector('form').addEventListener('submit', (event) => {
                     event.preventDefault()
 
-                    const elements = document.querySelector('#elements').value.split(' ').map(x => parseInt(x, 10))
+                    const elements = document.querySelector('#elements').value.split(/[ ,]+/).map(x => parseInt(x, 10))
 
                     const choose = parseInt(document.querySelector('#choose').value)
 
@@ -42,7 +42,7 @@
     <body>
         <h1>Combinatorics playground</h1>
         <form>
-            Elements: <input id="elements" value="1 2 3 4 5 6 7 8 9 10" style="width: 200px;">
+            Elements: <input id="elements" value="1,2,3,4,5,6,7,8,9,10" style="width: 200px;">
             <br>
             Chooses: <input id="choose" value="5">
 
